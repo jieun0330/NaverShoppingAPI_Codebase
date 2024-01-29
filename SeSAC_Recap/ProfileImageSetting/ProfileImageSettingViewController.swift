@@ -23,8 +23,8 @@ class ProfileImageSettingViewController: UIViewController {
         configureView()
         configureConstraints()
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
+//        collectionView.delegate = self
+//        collectionView.dataSource = self
     }
     
     func configureHierachy() {
@@ -44,7 +44,7 @@ class ProfileImageSettingViewController: UIViewController {
         
         // 앞에는 .self 뒤에는 .identifier
         // 이건 등록만 하는거니까 아래 cell 재사용할때처럼 타입캐스팅은 따로 안씀
-        collectionView.register(ProfileImgCollectionViewCell.self, forCellWithReuseIdentifier: ProfileImgCollectionViewCell.identifier)
+//        collectionView.register(ProfileImgCollectionViewCell.self, forCellWithReuseIdentifier: ProfileImgCollectionViewCell.identifier)
     }
     
     func configureConstraints() {
@@ -83,16 +83,16 @@ class ProfileImageSettingViewController: UIViewController {
     }
 }
 
-extension ProfileImageSettingViewController: UICollectionViewDataSource, UICollectionViewDelegate  {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 14
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileImgCollectionViewCell.identifier, for: indexPath) as! ProfileImgCollectionViewCell
+//extension ProfileImageSettingViewController: UICollectionViewDataSource, UICollectionViewDelegate  {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 14
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileImgCollectionViewCell.identifier, for: indexPath) as! ProfileImgCollectionViewCell
+//
+//        // cell에 있는 profileCollectionImg 이거에 접근하고싶은데 안되네 🚨🚨🚨🚨🚨
+//        
+//        return cell
+//    }
 
-        // cell에 있는 profileCollectionImg 이거에 접근하고싶은데 안되네 🚨🚨🚨🚨🚨
-        
-        return cell
-    }
-}

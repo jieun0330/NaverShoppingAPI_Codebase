@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
 //        let navigationController = UINavigationController(rootViewController: KeywordHistoryViewController())
-        let navigationController = UINavigationController(rootViewController: OnboardingCodeViewController())
+        let navigationController = UINavigationController(rootViewController: OnboardingViewController())
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
