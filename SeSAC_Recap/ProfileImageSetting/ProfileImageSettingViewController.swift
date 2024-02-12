@@ -10,10 +10,10 @@ import SnapKit
 
 class ProfileImageSettingViewController: UIViewController {
     
-    let profileImg = UIImageView()
+    let selectedProfileImg = UIImageView()
     // frame: .zero -> constraints로 크기를 설정하기 때문에 zero 값을 넣는다
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,39 +22,43 @@ class ProfileImageSettingViewController: UIViewController {
         configureHierachy()
         configureView()
         configureConstraints()
-        
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
     }
     
     func configureHierachy() {
-        view.addSubview(profileImg)
-        view.addSubview(collectionView)
-    }
-    
-    func configureView() {
-        let selectedImg = UserDefaultManager.shared.profileImg
-//        profileImg.image = UIImage(named: "profile\(selectedImg+1)")
-        profileImg.contentMode = .scaleAspectFill
-        profileImg.layer.masksToBounds = false
-        profileImg.layer.cornerRadius = 70
-        profileImg.clipsToBounds = true
-        profileImg.layer.borderWidth = 5
-        profileImg.layer.borderColor = Colors.pointColor.cgColor
         
-        // 앞에는 .self 뒤에는 .identifier
-        // 이건 등록만 하는거니까 아래 cell 재사용할때처럼 타입캐스팅은 따로 안씀
-//        collectionView.register(ProfileImgCollectionViewCell.self, forCellWithReuseIdentifier: ProfileImgCollectionViewCell.identifier)
-    }
-    
-    func configureConstraints() {
-        profileImg.snp.makeConstraints { make in
-            make.centerX.equalTo(view)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+        [selectedProfileImg, collectionView].forEach {
+            view.addSubview($0)
         }
     }
     
-    func layout() -> UICollectionViewLayout {
+    func configureView() {
+        selectedProfileImg.contentMode = .scaleAspectFill
+        selectedProfileImg.layer.masksToBounds = false
+        selectedProfileImg.layer.cornerRadius = 70
+        selectedProfileImg.clipsToBounds = true
+        selectedProfileImg.layer.borderWidth = 5
+        selectedProfileImg.layer.borderColor = Colors.pointColor.cgColor
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        // 앞에는 .self 뒤에는 .identifier
+        // 이건 등록만 하는거니까 아래 cell 재사용할때처럼 타입캐스팅은 따로 안씀
+        //        collectionView.register(ProfileImgCollectionViewCell.self, forCellWithReuseIdentifier: ProfileImgCollectionViewCell.identifier)
+    }
+    
+    func configureConstraints() {
+        selectedProfileImg.snp.makeConstraints {
+            $0.centerX.equalTo(view)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+        }
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(selectedProfileImg.snp.bottom).offset(20)
+        }
+    }
+    
+    static func configureCollectionViewLayout() -> UICollectionViewLayout {
         // 콜렉션뷰 레이아웃을 설정할 수 있도록 도와주는 클래스 FlowLayout
         let layout = UICollectionViewFlowLayout()
         
@@ -77,22 +81,20 @@ class ProfileImageSettingViewController: UIViewController {
         // 셀을 어디서 시작할지, 상하좌우 여백을 얼마나 남길지
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         
-        collectionView.collectionViewLayout = layout
-        
-        return UICollectionViewLayout()
+        return layout
     }
 }
 
-//extension ProfileImageSettingViewController: UICollectionViewDataSource, UICollectionViewDelegate  {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 14
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileImgCollectionViewCell.identifier, for: indexPath) as! ProfileImgCollectionViewCell
-//
-//        // cell에 있는 profileCollectionImg 이거에 접근하고싶은데 안되네 🚨🚨🚨🚨🚨
-//        
-//        return cell
-//    }
-
+extension ProfileImageSettingViewController: UICollectionViewDataSource, UICollectionViewDelegate  {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 14
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileImageSettingCollectionViewCell.identifier, for: indexPath) as! ProfileImageSettingCollectionViewCell
+        
+        cell.profileCollectionImg.image = .profile1
+        
+        return cell
+    }
+}

@@ -35,20 +35,20 @@ class KeywordHistoryTableViewCell: UITableViewCell {
         xmarkButton.setImage(UIImage(systemName: "xmark"), for: .normal)
         
         //configureConstraints
-        searchIcon.snp.makeConstraints { make in
-            make.size.equalTo(20)
-            make.leading.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
+        searchIcon.snp.makeConstraints {
+            $0.size.equalTo(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.centerY.equalToSuperview()
         }
         
-        productName.snp.makeConstraints { make in
-            make.leading.equalTo(searchIcon.snp.trailing).offset(20)
-            make.centerY.equalToSuperview()
+        productName.snp.makeConstraints {
+            $0.leading.equalTo(searchIcon.snp.trailing).offset(20)
+            $0.centerY.equalToSuperview()
         }
         
-        xmarkButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-20)
-            make.centerY.equalToSuperview()
+        xmarkButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.centerY.equalToSuperview()
         }
     }
     
@@ -56,14 +56,7 @@ class KeywordHistoryTableViewCell: UITableViewCell {
         xmarkButtonAction?()
     }
     
-    // 요건 또 무엇이고하니
-    // 이게 무슨 코드를 작성해서 만들어진 코드지? 🚨🚨🚨🚨🚨
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
     }
 }

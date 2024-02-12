@@ -35,23 +35,29 @@ class OnboardingViewController: UITabBarController {
         startButton.setTitleColor(Colors.textColor, for: .normal)
         startButton.backgroundColor = Colors.pointColor
         startButton.layer.cornerRadius = 10
+        startButton.addTarget(self, action: #selector(startButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc func startButtonClicked() {
+        let vc = NickcnameSettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func configureConstraints() {
-        onboardingTitle.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(onboardingImg.snp.top).offset(-50)
+        onboardingTitle.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(onboardingImg.snp.top).offset(-50)
         }
         
-        onboardingImg.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+        onboardingImg.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
         }
         
-        startButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(45)
+        startButton.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(45)
         }
     }
 }

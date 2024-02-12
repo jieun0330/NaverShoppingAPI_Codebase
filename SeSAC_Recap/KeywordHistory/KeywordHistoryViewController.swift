@@ -32,12 +32,7 @@ class KeywordHistoryViewController: UIViewController {
     // -> 노옵 노옵오노오봉노~~~~!!~!!~
     // 슈퍼클래스는 저 뷰컨이고 그냥 그 안에서 재정의할 수 있는 것들을 만드는것이여 지은아
     
-    // 슈퍼클래스라는게 뭔데
-    // 슈퍼클래스가 viewDidLoad가 아니라 엥 ?
-    // 아 viewDidLoad를 원하는대로 재정의해서 써라~ 요거구나?
-    
     // 결론
-    // 슈퍼클래스는 KeywordHistoryViewController인거고
     // 이 슈퍼클래스가 메서드랑 프로퍼티를 뭐 주긴 하는데
     // 그걸 내 입맛대로 바꿔서 쓰겠다~ 하는게 override 재정의 하는것들이다~
     override func viewDidLoad() {
@@ -63,7 +58,6 @@ class KeywordHistoryViewController: UIViewController {
     
     func configureHierachy() {
         
-        // 써먹기~2
         [searchBar, recentSearch, deleteAll, tableView].forEach {
             view.addSubview($0)
         }
@@ -114,26 +108,26 @@ class KeywordHistoryViewController: UIViewController {
     }
     
     func configureConstraints() {
-        searchBar.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
-            make.centerX.equalTo(view)
-            make.top.equalTo(view.safeAreaLayoutGuide)
+        searchBar.snp.makeConstraints {
+            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
+            $0.centerX.equalTo(view)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
         }
         
-        recentSearch.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(10)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
+        recentSearch.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(10)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
         }
         
-        deleteAll.snp.makeConstraints { make in
-            make.top.equalTo(recentSearch)
-            make.trailing.equalTo(view.safeAreaInsets).offset(-10)
+        deleteAll.snp.makeConstraints {
+            $0.top.equalTo(recentSearch)
+            $0.trailing.equalTo(view.safeAreaInsets).offset(-10)
         }
         
-        tableView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.top.equalTo(recentSearch.snp.bottom).offset(20)
-            make.bottom.equalToSuperview()
+        tableView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview()
+            $0.top.equalTo(recentSearch.snp.bottom).offset(20)
+            $0.bottom.equalToSuperview()
         }
     }
     
@@ -187,7 +181,7 @@ extension KeywordHistoryViewController: UITableViewDelegate, UITableViewDataSour
 // 한곳에 여러 프로토콜을 나열하지 않도록 정렬해주는 역할을 한다
 // 2. 외부 라이브러리나 프레임워크를 가져와서 사용할 경우에는
 // 원본 소스를 수정할 수 없어 원하는 기능을 추가하기 어렵다, 이때 extension을 활용해서 추가할 수 있다
-// ???? 외부 라이브러리??? -> 우리가 썼던 snapkit? textfield? 이런건가? 🚨🚨🚨🚨🚨
+// ???? 외부 라이브러리??? -> 우리가 썼던 snapkit? textfield? 이런건가? 🚨
 
 // extension은 새로운 기능을 추가할 수는 있지만, 기존 새로운 기능을 재정의할수는 없다
 // 재정의 -> override
@@ -197,10 +191,5 @@ extension KeywordHistoryViewController: UISearchBarDelegate {
         UserDefaultManager.shared.keywords.insert(searchBar.text!, at: 0)
         searchBar.text?.removeAll()
         tableView.reloadData()
-        
     }
 }
-
-//#Preview {
-//    KeywordHistoryViewController()
-//}

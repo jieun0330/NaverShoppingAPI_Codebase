@@ -46,3 +46,13 @@ extension UITableViewCell: ReusableProtocol {
         return String(describing: self)
     }
 }
+
+extension UIButton {
+    func configurePrimaryStyle(title: String) {
+        self.setTitle(title, for: .normal)
+        self.backgroundColor = Colors.pointColor
+        self.layer.cornerRadius = 12
+        self.setTitleColor(Colors.textColor, for: .normal)
+        self.titleLabel?.font = Fonts.font13
+    }
+}
