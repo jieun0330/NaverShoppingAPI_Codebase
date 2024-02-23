@@ -8,42 +8,36 @@
 import UIKit
 import SnapKit
 
-class OnboardingViewController: UITabBarController {
+class OnboardingViewController: BaseViewController {
     
-    let onboardingTitle = UIImageView()
-    let onboardingImg = UIImageView()
-    let startButton = UIButton()
+    let onboardingTitle = UIImageView().then {
+        $0.image = .sesacShopping
+    }
+    
+    let onboardingImg = UIImageView().then {
+        $0.image = .onboarding
+    }
+    
+    lazy var startButton = UIButton().then {
+        $0.setTitle("시작하기", for: .normal)
+        $0.setTitleColor(Colors.textColor, for: .normal)
+        $0.backgroundColor = Colors.pointColor
+        $0.layer.cornerRadius = 10
+        $0.addTarget(self, action: #selector(startButtonClicked), for: .touchUpInside)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureHierachy()
-        configureView()
-        configureConstraints()
+
     }
     
-    func configureHierachy() {
+    override func configureHierarchy() {
         [onboardingTitle, onboardingImg, startButton].forEach {
             view.addSubview($0)
         }
     }
     
-    func configureView() {
-        onboardingTitle.image = .sesacShopping
-        onboardingImg.image = .onboarding
-        startButton.setTitle("시작하기", for: .normal)
-        startButton.setTitleColor(Colors.textColor, for: .normal)
-        startButton.backgroundColor = Colors.pointColor
-        startButton.layer.cornerRadius = 10
-        startButton.addTarget(self, action: #selector(startButtonClicked), for: .touchUpInside)
-    }
-    
-    @objc func startButtonClicked() {
-        let vc = NickcnameSettingViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func configureConstraints() {
+    override func configureConstraints() {
         onboardingTitle.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(onboardingImg.snp.top).offset(-50)
@@ -59,5 +53,14 @@ class OnboardingViewController: UITabBarController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(45)
         }
+    }
+    
+    override func configureView() {
+
+    }
+    
+    @objc func startButtonClicked() {
+        let vc = NickcnameSettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
