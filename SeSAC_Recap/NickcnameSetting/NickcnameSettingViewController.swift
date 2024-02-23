@@ -8,59 +8,57 @@
 import UIKit
 import SnapKit
 
-class NickcnameSettingViewController: UIViewController {
+class NickcnameSettingViewController: BaseViewController {
     
-    let profileImg = UIImageView()
-    let cameraImg = UIImageView()
-    let nicknameTextField = UITextField()
-    let divider = UIView()
-    let nicknameCondition = UILabel()
-    let doneButton = UIButton()
+    let profileImg = UIImageView().then {
+        $0.layer.borderWidth = 5
+        $0.layer.borderColor = Colors.pointColor.cgColor
+        $0.image = .profile1
+        $0.contentMode = .scaleAspectFill
+        $0.layer.cornerRadius = 40
+        $0.clipsToBounds = true
+    }
+    
+    let cameraImg = UIImageView().then {
+        $0.image = .camera
+    }
+    
+    let nicknameTextField = UITextField().then {
+        $0.placeholder = "닉네임을 입력해주세요 :)"
+        $0.font = Fonts.font13
+    }
+    
+    let divider = UIView().then {
+        $0.backgroundColor = .white
+    }
+    
+    let nicknameCondition = UILabel().then {
+        $0.text = "닉네임 조건"
+        $0.font = Fonts.font13
+        $0.textColor = Colors.pointColor
+    }
+    
+    let doneButton = UIButton().then {
+        $0.setTitle("완료", for: .normal)
+        $0.setTitleColor(Colors.textColor, for: .normal)
+        $0.backgroundColor = Colors.pointColor
+        $0.layer.cornerRadius = 5
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = "프로필 설정"
-        
-        configureHierachy()
-        configureView()
-        configureConstraints()
     }
-    
-    func configureHierachy() {
 
+    override func configureHierarchy() {
+        
         [profileImg, cameraImg, nicknameTextField, divider, nicknameCondition, doneButton].forEach {
             view.addSubview($0)
         }
     }
     
-    func configureView() {
-        profileImg.layer.borderWidth = 5
-        profileImg.layer.borderColor = Colors.pointColor.cgColor
-        profileImg.image = .profile1
-        profileImg.contentMode = .scaleAspectFill
-        profileImg.layer.cornerRadius = 40
-        profileImg.clipsToBounds = true
-        
-        cameraImg.image = .camera
-        
-        nicknameTextField.placeholder = "닉네임을 입력해주세요 :)"
-        nicknameTextField.font = Fonts.font13
-        
-        // 홀리몰리~ tintColor가 아니라 backgroundColor로 줘야 나옴
-        divider.backgroundColor = .white
-        
-        nicknameCondition.text = "닉네임 조건"
-        nicknameCondition.font = Fonts.font13
-        nicknameCondition.textColor = Colors.pointColor
-        
-        doneButton.setTitle("완료", for: .normal)
-        doneButton.setTitleColor(Colors.textColor, for: .normal)
-        doneButton.backgroundColor = Colors.pointColor
-        doneButton.layer.cornerRadius = 5
-    }
-    
-    func configureConstraints() {
+    override func configureConstraints() {
         profileImg.snp.makeConstraints {
             $0.centerX.equalTo(view)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
@@ -97,4 +95,8 @@ class NickcnameSettingViewController: UIViewController {
             $0.top.equalTo(nicknameCondition.snp.bottom).offset(20)
         }
     }
+    
+//    override func configureView() {
+//        <#code#>
+//    }
 }
