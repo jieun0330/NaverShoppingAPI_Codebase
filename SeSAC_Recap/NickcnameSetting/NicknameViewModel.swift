@@ -28,7 +28,7 @@ class NicknameViewModel {
         let num = CharacterSet(charactersIn: "0123456789")
         let char = CharacterSet(charactersIn: "#@$%")
         
-        if nickname.count < 2 || nickname.count > 10 {
+        if nickname.count < 1 || nickname.count > 10 {
             outputValidation.value = "2글자 이상 10글자 미만으로 설정해주세요"
             outputValidationColor.value = false
         } else if nickname.rangeOfCharacter(from: num) != nil {
