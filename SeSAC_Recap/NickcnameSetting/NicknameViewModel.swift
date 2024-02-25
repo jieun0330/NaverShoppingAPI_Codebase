@@ -9,12 +9,37 @@ import Foundation
 
 class NicknameViewModel {
     
-    func nicknameTextFieldEdited(_ inputNickname: String) -> String {
+    var inputNickname = Observable("")
+    
+    var outputValidation = Observable("")
+    var outputValidationColor = Observable(false)
+    
+
+//    let outputResult = false
+    
+    init() {
+        inputNickname.bind { value in
+            self.validation(nickname: value)
+        }
+    }
+    
+    func validation(nickname: String) {
         
-        if inputNickname.count >= 2 && inputNickname.count < 10 {
-            return "사용할 수 있는 닉네임입니다"
+        let num = CharacterSet(charactersIn: "0123456789")
+        let char = CharacterSet(charactersIn: "#@$%")
+        
+        if nickname.count < 2 || nickname.count > 10 {
+            outputValidation.value = "2글자 이상 10글자 미만으로 설정해주세요"
+            outputValidationColor.value = false
+        } else if nickname.rangeOfCharacter(from: num) != nil {
+            outputValidation.value = "닉네임에 숫자는 포함할 수 없어요"
+            outputValidationColor.value = false
+        } else if nickname.rangeOfCharacter(from: char) != nil {
+            outputValidation.value = "닉네임에 @,#,$,%는 포함할 수 없어요."
+            outputValidationColor.value = false
         } else {
-            return "잘못 입력했습니다"
+            outputValidation.value = ""
+            outputValidationColor.value = true
         }
     }
 }

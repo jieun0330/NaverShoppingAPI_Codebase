@@ -13,12 +13,13 @@ class NickcnameSettingViewController: BaseViewController {
     let viewModel = NicknameViewModel()
     let randomNum = Int.random(in: 1...14)
     
-    let profileImg = UIImageView().then {
+    lazy var profileImg = UIButton().then {
         $0.layer.borderWidth = 5
         $0.layer.borderColor = Colors.pointColor.cgColor
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 40
         $0.clipsToBounds = true
+        $0.addTarget(self, action: #selector(profileImgClicked), for: .touchUpInside)
     }
     
     let cameraImg = UIImageView().then {
@@ -36,12 +37,12 @@ class NickcnameSettingViewController: BaseViewController {
     }
     
     let nicknameCondition = UILabel().then {
-        $0.text = "닉네임 조건"
+        $0.text = "닉네임을 입력해주세요"
         $0.font = Fonts.font13
-        $0.textColor = Colors.pointColor
+//        $0.textColor = Colors.pointColor
     }
     
-    let doneButton = UIButton().then {
+    lazy var doneButton = UIButton().then {
         $0.setTitle("완료", for: .normal)
         $0.setTitleColor(Colors.textColor, for: .normal)
         $0.backgroundColor = Colors.pointColor
@@ -102,17 +103,31 @@ class NickcnameSettingViewController: BaseViewController {
     override func configureView() {
         view.backgroundColor = .black
         navigationItem.title = "프로필 설정"
-        profileImg.image = UIImage(named: "profile\(randomNum)")
+        profileImg.setImage(UIImage(named: "profile\(randomNum)"), for: .normal)
+        
+        
+        viewModel.outputValidation.bind { value in
+            self.nicknameCondition.text = value
+        }
+        
+        viewModel.outputValidationColor.bind { value in
+            self.nicknameCondition.textColor = value ? .green : .red
+        }
 
+    }
+    
+    @objc func profileImgClicked() {
+        let vc = ProfileImageSettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func nicknameTextFieldEdited() {
         guard let nickname = nicknameTextField.text else { return }
-        nicknameCondition.text = viewModel.nicknameTextFieldEdited(nickname)
+        viewModel.inputNickname.value = nickname
     }
     
     @objc func doneButtonClicked() {
-        let vc = ProfileImageSettingViewController()
+        let vc = KeywordHistoryViewController()
         navigationController?.pushViewController(vc, animated: true)
         
     }
