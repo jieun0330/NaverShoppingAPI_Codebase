@@ -46,6 +46,7 @@ class NickcnameSettingViewController: BaseViewController {
         $0.setTitleColor(Colors.textColor, for: .normal)
         $0.backgroundColor = Colors.pointColor
         $0.layer.cornerRadius = 5
+        $0.addTarget(self, action: #selector(doneButtonClicked), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
@@ -106,9 +107,13 @@ class NickcnameSettingViewController: BaseViewController {
     }
     
     @objc func nicknameTextFieldEdited() {
-        
         guard let nickname = nicknameTextField.text else { return }
         nicknameCondition.text = viewModel.nicknameTextFieldEdited(nickname)
-
+    }
+    
+    @objc func doneButtonClicked() {
+        let vc = ProfileImageSettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
 }

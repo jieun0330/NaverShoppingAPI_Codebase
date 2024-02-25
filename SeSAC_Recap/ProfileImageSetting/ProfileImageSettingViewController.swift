@@ -32,6 +32,8 @@ class ProfileImageSettingViewController: UIViewController {
     }
     
     func configureView() {
+        view.backgroundColor = .black
+        
         selectedProfileImg.contentMode = .scaleAspectFill
         selectedProfileImg.layer.masksToBounds = false
         selectedProfileImg.layer.cornerRadius = 70
