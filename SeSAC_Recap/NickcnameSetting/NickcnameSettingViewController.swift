@@ -10,12 +10,12 @@ import SnapKit
 
 class NickcnameSettingViewController: BaseViewController {
     
-    var viewModel = NicknameViewModel()
+    let viewModel = NicknameViewModel()
+    let randomNum = Int.random(in: 1...14)
     
     let profileImg = UIImageView().then {
         $0.layer.borderWidth = 5
         $0.layer.borderColor = Colors.pointColor.cgColor
-        $0.image = .profile1
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 40
         $0.clipsToBounds = true
@@ -25,9 +25,10 @@ class NickcnameSettingViewController: BaseViewController {
         $0.image = .camera
     }
     
-    let nicknameTextField = UITextField().then {
+    lazy var nicknameTextField = UITextField().then {
         $0.placeholder = "닉네임을 입력해주세요 :)"
         $0.font = Fonts.font13
+        $0.addTarget(self, action: #selector(nicknameTextFieldEdited), for: .editingChanged)
     }
     
     let divider = UIView().then {
@@ -50,21 +51,13 @@ class NickcnameSettingViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nicknameTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-        
-        doneButton.addTarget(self, action: #selector(doneButtonClicked), for: .touchUpInside)
-        
     }
     
     override func configureHierarchy() {
+        
         [profileImg, cameraImg, nicknameTextField, divider, nicknameCondition, doneButton].forEach {
             view.addSubview($0)
         }
-    }
-    
-    override func configureView() {
-        navigationItem.title = "프로필 설정"
-        view.backgroundColor = .black
     }
     
     override func configureConstraints() {
@@ -86,6 +79,7 @@ class NickcnameSettingViewController: BaseViewController {
         }
         
         divider.snp.makeConstraints {
+            // 홀리몰리~2 height만 주고 width값 안주니까 안보이지 몽총아~
             $0.width.equalTo(nicknameTextField.snp.width)
             $0.height.equalTo(1)
             $0.top.equalTo(nicknameTextField.snp.bottom).offset(10)
@@ -104,13 +98,17 @@ class NickcnameSettingViewController: BaseViewController {
         }
     }
     
-    @objc func textFieldChanged() {
+    override func configureView() {
+        view.backgroundColor = .black
+        navigationItem.title = "프로필 설정"
+        profileImg.image = UIImage(named: "profile\(randomNum)")
+
+    }
+    
+    @objc func nicknameTextFieldEdited() {
+        
         guard let nickname = nicknameTextField.text else { return }
-        nicknameCondition.text = viewModel.textFieldChanged(nickname)
+        nicknameCondition.text = viewModel.nicknameTextFieldEdited(nickname)
+
     }
-    
-    @objc func doneButtonClicked() {
-        print("완료 버튼 클릭")
-    }
-    
 }
