@@ -7,22 +7,37 @@
 
 import UIKit
 
-class ProfileImageSettingCollectionViewCell: UICollectionViewCell {
+class ProfileImageSettingCollectionViewCell: BaseCollectionViewCell {
     
-    let profileCollectionImg = UIImageView()
+    let profileCollectionImg = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.layer.masksToBounds = false
+        $0.layer.cornerRadius = 20
+        $0.clipsToBounds = true
+        $0.image = .profile1
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureCollectionImg()
     }
     
-    func configureCollectionImg() {
-        contentMode = .scaleAspectFill
-        layer.masksToBounds = false
-        layer.cornerRadius = 10
-        clipsToBounds = true
+    override func configureHierarchy() {
+        [profileCollectionImg].forEach {
+            contentView.addSubview($0)
+        }
     }
+    
+    override func configureConstraints() {
+        profileCollectionImg.snp.makeConstraints {
+            $0.leading.top.equalTo(contentView)
+            $0.size.equalTo(70)
+        }
+    }
+    
+//    override func configureView() {
+//        <#code#>
+//    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

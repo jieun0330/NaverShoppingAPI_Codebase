@@ -19,6 +19,8 @@ class UserDefaultManager {
         case profileImg
         case likes      // 좋아요 누른 상품 넣어놓기
         case keywords   // 검색한 상품 넣어놓기
+        case userState // 닉네임 설정했을 경우 첫 화면 -> 상품기록화면
+        case nickname
     }
     
     let userDefaults = UserDefaults.standard
@@ -65,6 +67,24 @@ class UserDefaultManager {
         }
         set {
             userDefaults.set(newValue, forKey: UDKey.keywords.rawValue)
+        }
+    }
+    
+    var userState: Bool {
+        get {
+            userDefaults.bool(forKey: UDKey.userState.rawValue)
+        }
+        set {
+            userDefaults.set(newValue, forKey: UDKey.userState.rawValue)
+        }
+    }
+    
+    var nickname: String {
+        get {
+            userDefaults.string(forKey: UDKey.nickname.rawValue) ?? ""
+        }
+        set {
+            userDefaults.set(newValue, forKey: UDKey.nickname.rawValue)
         }
     }
 }

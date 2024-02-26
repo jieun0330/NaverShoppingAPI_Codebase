@@ -11,6 +11,7 @@ import SnapKit
 class NickcnameSettingViewController: BaseViewController {
     
     let viewModel = NicknameViewModel()
+    
     let randomNum = Int.random(in: 1...14)
     
     lazy var profileImg = UIButton().then {
@@ -37,9 +38,8 @@ class NickcnameSettingViewController: BaseViewController {
     }
     
     let nicknameCondition = UILabel().then {
-        $0.text = "닉네임을 입력해주세요"
+        $0.text = ""
         $0.font = Fonts.font13
-//        $0.textColor = Colors.pointColor
     }
     
     lazy var doneButton = UIButton().then {
@@ -104,16 +104,7 @@ class NickcnameSettingViewController: BaseViewController {
         view.backgroundColor = .black
         navigationItem.title = "프로필 설정"
         profileImg.setImage(UIImage(named: "profile\(randomNum)"), for: .normal)
-        
-        
-        viewModel.outputValidation.bind { value in
-            self.nicknameCondition.text = value
-        }
-        
-        viewModel.outputValidationColor.bind { value in
-            self.nicknameCondition.textColor = value ? .green : .red
-        }
-
+        doneButton.isEnabled = false
     }
     
     @objc func profileImgClicked() {
@@ -124,11 +115,23 @@ class NickcnameSettingViewController: BaseViewController {
     @objc func nicknameTextFieldEdited() {
         guard let nickname = nicknameTextField.text else { return }
         viewModel.inputNickname.value = nickname
+        
+        viewModel.outputValidation.bind { value in
+            self.nicknameCondition.text = value
+        }
+        
+        viewModel.outputValidationColor.bind { value in
+            self.nicknameCondition.textColor = value ? .green : .red
+            self.doneButton.isEnabled = value ? true : false
+        }
     }
     
     @objc func doneButtonClicked() {
+        guard let nickname = nicknameTextField.text else { return }
+        UserDefaultManager.shared.nickname = nickname
+        UserDefaultManager.shared.userState = true
+        
         let vc = KeywordHistoryViewController()
         navigationController?.pushViewController(vc, animated: true)
-        
     }
 }

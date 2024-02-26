@@ -8,56 +8,53 @@
 import UIKit
 import SnapKit
 
-class ProfileImageSettingViewController: UIViewController {
+class ProfileImageSettingViewController: BaseViewController {
     
-    let selectedProfileImg = UIImageView()
-    // frame: .zero -> constraints로 크기를 설정하기 때문에 zero 값을 넣는다
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
+    let selectedProfileImg = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.layer.masksToBounds = false
+        $0.layer.cornerRadius = 50
+        $0.clipsToBounds = true
+        $0.layer.borderWidth = 5
+        $0.layer.borderColor = Colors.pointColor.cgColor
+        $0.image = UIImage(named: "profile\(UserDefaultManager.shared.profileImg)")
+    }
+    
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout()).then {
+        $0.register(ProfileImageSettingCollectionViewCell.self, forCellWithReuseIdentifier: ProfileImageSettingCollectionViewCell.identifier)
+        $0.layer.borderColor = UIColor.red.cgColor
+        $0.layer.borderWidth = 1
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.title = "프로필 설정"
-        
-        configureHierachy()
-        configureView()
-        configureConstraints()
     }
     
-    func configureHierachy() {
-        
+    override func configureHierarchy() {
         [selectedProfileImg, collectionView].forEach {
             view.addSubview($0)
         }
     }
     
-    func configureView() {
-        view.backgroundColor = .black
-        
-        selectedProfileImg.contentMode = .scaleAspectFill
-        selectedProfileImg.layer.masksToBounds = false
-        selectedProfileImg.layer.cornerRadius = 70
-        selectedProfileImg.clipsToBounds = true
-        selectedProfileImg.layer.borderWidth = 5
-        selectedProfileImg.layer.borderColor = Colors.pointColor.cgColor
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        // 앞에는 .self 뒤에는 .identifier
-        // 이건 등록만 하는거니까 아래 cell 재사용할때처럼 타입캐스팅은 따로 안씀
-        //        collectionView.register(ProfileImgCollectionViewCell.self, forCellWithReuseIdentifier: ProfileImgCollectionViewCell.identifier)
-    }
-    
-    func configureConstraints() {
+    override func configureConstraints() {
         selectedProfileImg.snp.makeConstraints {
             $0.centerX.equalTo(view)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.size.equalTo(100)
         }
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(selectedProfileImg.snp.bottom).offset(20)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.height.equalTo(400)
         }
+    }
+    
+    override func configureView() {
+        view.backgroundColor = .black
+        navigationItem.title = "프로필 설정"
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     static func configureCollectionViewLayout() -> UICollectionViewLayout {
@@ -74,15 +71,19 @@ class ProfileImageSettingViewController: UIViewController {
         // 오홀ㅇ~ float을 쓸지 double을 쓸지 신경 안쓰고 알아서 처리하게 만들려면 cgfloat을 사용하면 된다
         // ㅇㅋ
         let spacing: CGFloat = 10
+        // 전체 스크린 가로 길이 - 전체 여백
+        let cellWidth = UIScreen.main.bounds.width - (spacing * 6)
+        // 여백을 쏙 뺀 아이템들의 가로와 세로 길이
+        layout.itemSize = CGSize(width: cellWidth / 4, height: cellWidth / 4)
+
+
+        // 셀을 어디서 시작할지, 상하좌우 여백을 얼마나 남길지
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        // 열에서 아이템간의 최소 간격
+        layout.minimumLineSpacing = 0
         // 행에서 아이템간의 최소 간격
         layout.minimumInteritemSpacing = spacing
-        // 열에서 아이템간의 최소 간격
-        layout.minimumLineSpacing = spacing
-        let cellWidth = UIScreen.main.bounds.width - (spacing * 5)
-        layout.itemSize = CGSize(width: cellWidth / 4, height: cellWidth / 4)
-        // 셀을 어디서 시작할지, 상하좌우 여백을 얼마나 남길지
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        
+                
         return layout
     }
 }

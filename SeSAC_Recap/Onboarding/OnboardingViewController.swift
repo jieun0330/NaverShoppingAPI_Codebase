@@ -56,7 +56,6 @@ class OnboardingViewController: BaseViewController {
     }
     
     override func configureView() {
-
     }
     
     @objc func startButtonClicked() {

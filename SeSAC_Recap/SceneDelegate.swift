@@ -13,15 +13,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        guard let scene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: scene)
+        let value = UserDefaultManager.shared.userState
+        print(value)
         
-//        let vc = OnboardingViewController()
-//        let nav = UINavigationController(rootViewController: vc)
-        
-        window?.rootViewController = SettingViewController()
-        window?.makeKeyAndVisible()
-        
+        if value == true { // 닉네임이 설정됐을 경우
+            guard let scene = (scene as? UIWindowScene) else { return }
+            window = UIWindow(windowScene: scene)
+            
+            let vc = KeywordHistoryViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            
+            window?.rootViewController = nav
+            window?.makeKeyAndVisible()
+        } else {
+            guard let scene = (scene as? UIWindowScene) else { return }
+            window = UIWindow(windowScene: scene)
+            
+            let vc = OnboardingViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            
+            window?.rootViewController = nav
+            window?.makeKeyAndVisible()
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
