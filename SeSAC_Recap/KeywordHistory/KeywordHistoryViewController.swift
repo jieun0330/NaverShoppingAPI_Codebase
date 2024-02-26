@@ -39,7 +39,7 @@ class KeywordHistoryViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .black
-        navigationItem.title = "떠나고싶은 고래밥님의 새싹쇼핑"
+        navigationItem.title = "\(UserDefaultManager.shared.nickname)님의 새싹쇼핑"
         
         // 부르는 순서도 꼬이지 않아야함
         // addSubView -> 디자인 요소 -> Constraints 주기
