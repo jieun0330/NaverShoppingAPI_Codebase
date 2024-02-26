@@ -25,8 +25,10 @@
 		C231A6A12B8B15BD00D87CC6 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C231A6A02B8B15BD00D87CC6 /* Observable.swift */; };
 		C231A6A52B8B596F00D87CC6 /* SettingEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C231A6A42B8B596F00D87CC6 /* SettingEnum.swift */; };
 		C231A6DC2B8C9FA500D87CC6 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C231A6DB2B8C9FA500D87CC6 /* BaseCollectionViewCell.swift */; };
+		C231A6E02B8CB15600D87CC6 /* NetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C231A6DF2B8CB15600D87CC6 /* NetworkViewModel.swift */; };
+		C231A6E22B8CB32D00D87CC6 /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C231A6E12B8CB32D00D87CC6 /* SortType.swift */; };
+		C231A6E42B8CB4B900D87CC6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C231A6E32B8CB4B900D87CC6 /* Model.swift */; };
 		C25FC44C2B5BD064000D8F6E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C25FC44B2B5BD064000D8F6E /* Alamofire */; };
-		C25FC44E2B5BD39B000D8F6E /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25FC44D2B5BD39B000D8F6E /* Keyword.swift */; };
 		C25FC4552B5BDE68000D8F6E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C25FC4542B5BDE68000D8F6E /* Kingfisher */; };
 		C25FC45D2B5BE0DF000D8F6E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = C25FC45C2B5BE0DF000D8F6E /* .gitignore */; };
 		C25FC45F2B5BE120000D8F6E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25FC45E2B5BE120000D8F6E /* APIKey.swift */; };
@@ -34,6 +36,7 @@
 		C2A75FF32B63B4E600541BE7 /* KeywordHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A75FF22B63B4E600541BE7 /* KeywordHistoryViewController.swift */; };
 		C2A75FF62B63B56E00541BE7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C2A75FF52B63B56E00541BE7 /* SnapKit */; };
 		C2A75FF82B63B56E00541BE7 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = C2A75FF72B63B56E00541BE7 /* SnapKit-Dynamic */; };
+		C2F4F3022B8CDE4600E65588 /* KeywordResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F4F3012B8CDE4600E65588 /* KeywordResultViewController.swift */; };
 		C2F9EFD12B59392400D0BBA1 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F9EFD02B59392400D0BBA1 /* UIViewControllerExtension.swift */; };
 		C2F9EFDA2B5A325200D0BBA1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F9EFD92B5A325200D0BBA1 /* Protocol.swift */; };
 /* End PBXBuildFile section */
@@ -59,11 +62,14 @@
 		C231A6A02B8B15BD00D87CC6 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		C231A6A42B8B596F00D87CC6 /* SettingEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingEnum.swift; sourceTree = "<group>"; };
 		C231A6DB2B8C9FA500D87CC6 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
-		C25FC44D2B5BD39B000D8F6E /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
+		C231A6DF2B8CB15600D87CC6 /* NetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewModel.swift; sourceTree = "<group>"; };
+		C231A6E12B8CB32D00D87CC6 /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
+		C231A6E32B8CB4B900D87CC6 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		C25FC45C2B5BE0DF000D8F6E /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		C25FC45E2B5BE120000D8F6E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		C29E8B3E2B6100EE00894D23 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		C2A75FF22B63B4E600541BE7 /* KeywordHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordHistoryViewController.swift; sourceTree = "<group>"; };
+		C2F4F3012B8CDE4600E65588 /* KeywordResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordResultViewController.swift; sourceTree = "<group>"; };
 		C2F9EFD02B59392400D0BBA1 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		C2F9EFD92B5A325200D0BBA1 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,11 +110,12 @@
 		C20F839B2B591CF4006B2463 /* SeSAC_Recap */ = {
 			isa = PBXGroup;
 			children = (
-				C25FC44D2B5BD39B000D8F6E /* Keyword.swift */,
 				C2898B4A2B6796DF00AF9CE8 /* Onboarding */,
 				C2898B4B2B67987000AF9CE8 /* NickcnameSetting */,
 				C2898B4C2B6798A500AF9CE8 /* ProfileImageSetting */,
 				C2898B4D2B6798C700AF9CE8 /* KeywordHistory */,
+				C2F4F3002B8CDE2F00E65588 /* KeywordResult */,
+				C231A6DE2B8CB13600D87CC6 /* Network */,
 				C231A69B2B88C5FE00D87CC6 /* Setting */,
 				C2F9EFF02B5AC5EA00D0BBA1 /* Protocol */,
 				C2F9EFCF2B5938DD00D0BBA1 /* Extension */,
@@ -160,6 +167,16 @@
 			path = UserDefaultManager;
 			sourceTree = "<group>";
 		};
+		C231A6DE2B8CB13600D87CC6 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C231A6DF2B8CB15600D87CC6 /* NetworkViewModel.swift */,
+				C231A6E12B8CB32D00D87CC6 /* SortType.swift */,
+				C231A6E32B8CB4B900D87CC6 /* Model.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		C2898B4A2B6796DF00AF9CE8 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +210,14 @@
 				C20314472B63C0880002FD47 /* KeywordHistoryTableViewCell.swift */,
 			);
 			path = KeywordHistory;
+			sourceTree = "<group>";
+		};
+		C2F4F3002B8CDE2F00E65588 /* KeywordResult */ = {
+			isa = PBXGroup;
+			children = (
+				C2F4F3012B8CDE4600E65588 /* KeywordResultViewController.swift */,
+			);
+			path = KeywordResult;
 			sourceTree = "<group>";
 		};
 		C2F9EFCF2B5938DD00D0BBA1 /* Extension */ = {
@@ -300,17 +325,20 @@
 				C20F83A12B591CF4006B2463 /* ViewController.swift in Sources */,
 				C231A69F2B88CDB900D87CC6 /* NicknameViewModel.swift in Sources */,
 				C20F839D2B591CF4006B2463 /* AppDelegate.swift in Sources */,
+				C2F4F3022B8CDE4600E65588 /* KeywordResultViewController.swift in Sources */,
 				C2F9EFD12B59392400D0BBA1 /* UIViewControllerExtension.swift in Sources */,
 				C2F9EFDA2B5A325200D0BBA1 /* Protocol.swift in Sources */,
 				C231A69D2B88C60800D87CC6 /* SettingViewController.swift in Sources */,
 				C20314482B63C0880002FD47 /* KeywordHistoryTableViewCell.swift in Sources */,
 				C21607182B65F1C0001DD301 /* ProfileImageSettingCollectionViewCell.swift in Sources */,
 				C2A75FF32B63B4E600541BE7 /* KeywordHistoryViewController.swift in Sources */,
+				C231A6E22B8CB32D00D87CC6 /* SortType.swift in Sources */,
 				C231A6DC2B8C9FA500D87CC6 /* BaseCollectionViewCell.swift in Sources */,
 				C231A6A52B8B596F00D87CC6 /* SettingEnum.swift in Sources */,
+				C231A6E02B8CB15600D87CC6 /* NetworkViewModel.swift in Sources */,
+				C231A6E42B8CB4B900D87CC6 /* Model.swift in Sources */,
 				C20F839F2B591CF4006B2463 /* SceneDelegate.swift in Sources */,
 				C21607162B65BC4C001DD301 /* ProfileImageSettingViewController.swift in Sources */,
-				C25FC44E2B5BD39B000D8F6E /* Keyword.swift in Sources */,
 				C21607142B65AF2E001DD301 /* NickcnameSettingViewController.swift in Sources */,
 				C25FC45F2B5BE120000D8F6E /* APIKey.swift in Sources */,
 				C231A69A2B88C4A200D87CC6 /* BaseViewController.swift in Sources */,

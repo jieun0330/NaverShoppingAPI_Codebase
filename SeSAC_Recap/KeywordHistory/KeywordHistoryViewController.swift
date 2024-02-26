@@ -8,12 +8,33 @@
 import UIKit
 import SnapKit
 
-class KeywordHistoryViewController: UIViewController {
+class KeywordHistoryViewController: BaseViewController {
     
-    let searchBar = UISearchBar()
-    let recentSearch = UILabel()
-    let deleteAll = UIButton()
-    let tableView = UITableView()
+    let viewModel = NetworkViewModel()
+    
+    lazy var searchBar = UISearchBar().then {
+        $0.delegate = self
+        $0.placeholder = "브랜드, 상품, 프로필, 태그 등"
+    }
+    
+    let recentSearch = UILabel().then { 
+        $0.text = "최근 검색"
+        $0.textColor = Colors.textColor
+    }
+    
+    lazy var deleteAll = UIButton().then {
+        $0.setTitle("모두 지우기", for: .normal)
+        $0.setTitleColor(Colors.pointColor, for: .normal)
+        $0.addTarget(self, action: #selector(deleteAllClicked), for: .touchUpInside)
+    }
+    
+    lazy var tableView = UITableView().then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.register(KeywordHistoryTableViewCell.self, forCellReuseIdentifier: KeywordHistoryTableViewCell.identifier)
+        $0.backgroundColor = .black
+        $0.rowHeight = 60
+    }
     
     // 클래스에서 가장 중요한 점은 상속
     // 상속받은 클래스는 하위클래스라고 한다
@@ -38,14 +59,8 @@ class KeywordHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
-        navigationItem.title = "\(UserDefaultManager.shared.nickname)님의 새싹쇼핑"
-        
         // 부르는 순서도 꼬이지 않아야함
         // addSubView -> 디자인 요소 -> Constraints 주기
-        configureHierachy()
-        configureView()
-        configureConstraints()
         
         // AutoresizingMask가 autoLayoutConstraints로 변환되는지 여부를 물어보는 코드
         // 원래는 스토리보드에서 잡을 때는 Autoresizing이 자동으로 꺼지는데,
@@ -56,58 +71,14 @@ class KeywordHistoryViewController: UIViewController {
         //        searchBar.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func configureHierachy() {
+    override func configureHierarchy() {
         
         [searchBar, recentSearch, deleteAll, tableView].forEach {
             view.addSubview($0)
         }
     }
     
-    func configureView() {
-        
-        // searchbar는 UI적으로 바꿀게 없으니까 delegate만 불러오는구나???
-        searchBar.delegate = self
-        searchBar.placeholder = "브랜드, 상품, 프로필, 태그 등"
-        
-        recentSearch.text = "최근 검색"
-        recentSearch.textColor = Colors.textColor
-        
-        deleteAll.setTitle("모두 지우기", for: .normal)
-        deleteAll.setTitleColor(Colors.pointColor, for: .normal)
-        deleteAll.addTarget(self, action: #selector(deleteAllClicked), for: .touchUpInside)
-        
-        // dataSource: 데이터를 받아 뷰를 그려주는 역할
-        // -> cellForRowAt: 여기 안에 cell view 그려주는 코드를 작성하잖아???
-        // 다른걸로는 numberOfRowsInSection 섹션 안에 행이 몇개 있냐~
-        // dataSource는 보여주는 것을 담당했다면
-        
-        // delegate는 그 보이는 부분 중 어떤 것을 클릭하거나 행동을 했을 때,
-        // 그 행동에 대한 동작을 수행하게 된다
-        // didSelectRowAtIndexPath 눌렀을때~ 동작하는거~!
-        
-        // 그래서 아래 코드를 작성했을 때 자동 생성되는 두 프로토콜
-        // UITableViewDataSource, UITableViewDelegate
-        // 그래서 이 두 프로토콜을 채택하면 테이블뷰가 그 역할을 할 수 있도록 함~!
-        
-        // 아 그래서 delegate랑 datasource의 위임을 바로 이 KeywordHistoryViewController가 하겠다~ 해서
-        // KeywordHistoryViewController가 self인거구나 ㅇㅋㅇㅋㅇㅋㅇㅋㅇㅋ
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        // 셀을 등록할 때는 nibName과 forCellReuseIdentifier를 넣어주고
-        // 아래 cellForRowAt에서 셀 재사용 시에도 withIdentifier를 넣어줘야한다
-        // 3개의 파라미터가 모두 String값을 받게 되어있다
-        // 벗뜨
-        // String이기 때무네 프로토콜로 만들어준다 -> Protocol.swift
-        
-        // register: 셀을 등록하는데 사용하는 메서드
-        // resueIdentifier: 셀의 ID
-        tableView.register(KeywordHistoryTableViewCell.self, forCellReuseIdentifier: KeywordHistoryTableViewCell.identifier)
-        tableView.backgroundColor = .black
-        tableView.rowHeight = 60
-    }
-    
-    func configureConstraints() {
+    override func configureConstraints() {
         searchBar.snp.makeConstraints {
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(10)
             $0.centerX.equalTo(view)
@@ -131,6 +102,39 @@ class KeywordHistoryViewController: UIViewController {
         }
     }
     
+    override func configureView() {
+        
+        view.backgroundColor = .black
+        navigationItem.title = "\(UserDefaultManager.shared.nickname)님의 새싹쇼핑"
+        // searchbar는 UI적으로 바꿀게 없으니까 delegate만 불러오는구나???
+        
+        // dataSource: 데이터를 받아 뷰를 그려주는 역할
+        // -> cellForRowAt: 여기 안에 cell view 그려주는 코드를 작성하잖아???
+        // 다른걸로는 numberOfRowsInSection 섹션 안에 행이 몇개 있냐~
+        // dataSource는 보여주는 것을 담당했다면
+        
+        // delegate는 그 보이는 부분 중 어떤 것을 클릭하거나 행동을 했을 때,
+        // 그 행동에 대한 동작을 수행하게 된다
+        // didSelectRowAtIndexPath 눌렀을때~ 동작하는거~!
+        
+        // 그래서 아래 코드를 작성했을 때 자동 생성되는 두 프로토콜
+        // UITableViewDataSource, UITableViewDelegate
+        // 그래서 이 두 프로토콜을 채택하면 테이블뷰가 그 역할을 할 수 있도록 함~!
+        
+        // 아 그래서 delegate랑 datasource의 위임을 바로 이 KeywordHistoryViewController가 하겠다~ 해서
+        // KeywordHistoryViewController가 self인거구나 ㅇㅋㅇㅋㅇㅋㅇㅋㅇㅋ
+
+        
+        // 셀을 등록할 때는 nibName과 forCellReuseIdentifier를 넣어주고
+        // 아래 cellForRowAt에서 셀 재사용 시에도 withIdentifier를 넣어줘야한다
+        // 3개의 파라미터가 모두 String값을 받게 되어있다
+        // 벗뜨
+        // String이기 때무네 프로토콜로 만들어준다 -> Protocol.swift
+        
+        // register: 셀을 등록하는데 사용하는 메서드
+        // resueIdentifier: 셀의 ID
+    }
+        
     @objc func deleteAllClicked() {
         UserDefaultManager.shared.keywords.removeAll()
         tableView.reloadData()
@@ -188,8 +192,16 @@ extension KeywordHistoryViewController: UITableViewDelegate, UITableViewDataSour
 extension KeywordHistoryViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let productName = searchBar.text else { return }
+        viewModel.inputSearchText.value = productName
+        print("productName", productName)
+        
         UserDefaultManager.shared.keywords.insert(searchBar.text!, at: 0)
         searchBar.text?.removeAll()
         tableView.reloadData()
+        
+        let vc = KeywordResultViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

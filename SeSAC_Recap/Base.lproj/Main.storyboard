@@ -52,11 +52,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kwX-1E-Tad"/>
-                    <connections>
-                        <outlet property="mainImg" destination="HfD-bu-ga6" id="VRG-zd-YvL"/>
-                        <outlet property="sesacShopping" destination="Vav-5L-eva" id="rqm-1j-09r"/>
-                        <outlet property="startButton" destination="tdv-lm-GbS" id="Zik-10-GEm"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6cS-MZ-13q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -223,26 +218,11 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="c4K-zb-KCW"/>
-                    <connections>
-                        <outlet property="cameraImg" destination="Gph-2x-98L" id="9CM-cD-diE"/>
-                        <outlet property="doneButton" destination="9m9-NY-jdS" id="CsJ-zU-r3M"/>
-                        <outlet property="nicknameCondition" destination="Vpa-x4-wNM" id="Szx-nq-0s4"/>
-                        <outlet property="nicknameTextField" destination="6aH-J2-zX7" id="liB-8k-QBk"/>
-                        <outlet property="profileImg" destination="aHO-iH-kA4" id="ei4-qs-s57"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kk-iI-PZ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="PBg-fr-2M3" userLabel="Exit" sceneMemberID="exit"/>
-                <tapGestureRecognizer id="Jo4-jx-ra5">
-                    <connections>
-                        <action selector="imageClicked:" destination="bcy-DC-pkE" id="Q9t-RA-bVq"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="uwp-wA-mfq">
-                    <connections>
-                        <action selector="keyboardDismiss:" destination="bcy-DC-pkE" id="Gr4-7i-wiu"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Jo4-jx-ra5"/>
+                <tapGestureRecognizer id="uwp-wA-mfq"/>
             </objects>
             <point key="canvasLocation" x="1246.5648854961833" y="664.78873239436621"/>
         </scene>
@@ -294,10 +274,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TOX-R9-K2A"/>
-                    <connections>
-                        <outlet property="profileImg" destination="Ztd-ej-T7h" id="HuM-mg-NaP"/>
-                        <outlet property="profileListView" destination="B83-BB-l1X" id="sMA-A1-t2R"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6qx-YN-EHh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
