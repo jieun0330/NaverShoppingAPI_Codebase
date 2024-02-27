@@ -194,8 +194,7 @@ extension KeywordHistoryViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         guard let productName = searchBar.text else { return }
-        viewModel.inputSearchText.value = productName
-        print("productName", productName)
+            viewModel.inputSearchText.value = productName
         
         UserDefaultManager.shared.keywords.insert(searchBar.text!, at: 0)
         searchBar.text?.removeAll()
