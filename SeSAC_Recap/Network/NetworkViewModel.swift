@@ -15,11 +15,17 @@ class NetworkViewModel {
     var start = 1
     var sort = SortType.sim
     
-    init() {
+    func transform() {
+        
         inputSearchText.bind { value in
-            self.callRequest(text: value)
-            print("value", value)
+            if value.count != 0 {
+                self.callRequest(text: value)
+            }
         }
+    }
+    
+    init() {
+        transform()
     }
     
     // 정확도, 가격낮은순, 높은순, 최신순 버튼을 눌렀을때 SortType의 rawValue를 불러올거기 때문에 sort: String으로 매개변수를 받는다?
@@ -37,7 +43,7 @@ class NetworkViewModel {
                 case .success(let success):
                     print(success)
                 case .failure(let failure):
-                    print(failure)
+                    dump(failure)
                 }
         }
     }

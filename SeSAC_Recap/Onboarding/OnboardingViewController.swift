@@ -8,23 +8,29 @@
 import UIKit
 import SnapKit
 
-class OnboardingViewController: BaseViewController {
+final class OnboardingViewController: BaseViewController {
     
-    let onboardingTitle = UIImageView().then {
-        $0.image = .sesacShopping
-    }
+    private let onboardingTitle: UIImageView = {
+        let image = UIImageView()
+        image.image = .sesacShopping
+        return image
+    }()
     
-    let onboardingImg = UIImageView().then {
-        $0.image = .onboarding
-    }
+    private let onboardingImg: UIImageView = {
+        let image = UIImageView()
+        image.image = .onboarding
+        return image
+    }()
     
-    lazy var startButton = UIButton().then {
-        $0.setTitle("시작하기", for: .normal)
-        $0.setTitleColor(Colors.textColor, for: .normal)
-        $0.backgroundColor = Colors.pointColor
-        $0.layer.cornerRadius = 10
-        $0.addTarget(self, action: #selector(startButtonClicked), for: .touchUpInside)
-    }
+    private lazy var startButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("시작하기", for: .normal)
+        button.setTitleColor(Colors.textColor, for: .normal)
+        button.backgroundColor = Colors.pointColor
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(startButtonClicked), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,10 +61,7 @@ class OnboardingViewController: BaseViewController {
         }
     }
     
-    override func configureView() {
-    }
-    
-    @objc func startButtonClicked() {
+    @objc private func startButtonClicked() {
         let vc = NickcnameSettingViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
