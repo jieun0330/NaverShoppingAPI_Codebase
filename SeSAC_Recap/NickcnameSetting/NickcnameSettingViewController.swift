@@ -8,47 +8,59 @@
 import UIKit
 import SnapKit
 
-class NickcnameSettingViewController: BaseViewController {
+final class NickcnameSettingViewController: BaseViewController {
     
-    let viewModel = NicknameViewModel()
+    private let viewModel = NicknameViewModel()
     
-    let randomNum = Int.random(in: 1...14)
+    private let randomNum = Int.random(in: 1...14)
     
-    lazy var profileImg = UIButton().then {
-        $0.layer.borderWidth = 5
-        $0.layer.borderColor = Colors.pointColor.cgColor
-        $0.contentMode = .scaleAspectFill
-        $0.layer.cornerRadius = 40
-        $0.clipsToBounds = true
-        $0.addTarget(self, action: #selector(profileImgClicked), for: .touchUpInside)
-    }
+    private lazy var profileImg: UIButton = {
+        let button = UIButton()
+        button.layer.borderWidth = 5
+        button.layer.borderColor = Colors.pointColor.cgColor
+        button.contentMode = .scaleAspectFill
+        button.layer.cornerRadius = 40
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(profileImgClicked), for: .touchUpInside)
+        return button
+    }()
     
-    let cameraImg = UIImageView().then {
-        $0.image = .camera
-    }
+    private let cameraImg: UIImageView = {
+        let image = UIImageView()
+        image.image = .camera
+        return image
+    }()
     
-    lazy var nicknameTextField = UITextField().then {
-        $0.placeholder = "닉네임을 입력해주세요 :)"
-        $0.font = Fonts.font13
-        $0.addTarget(self, action: #selector(nicknameTextFieldEdited), for: .editingChanged)
-    }
+    private lazy var nicknameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "닉네임을 입력해주세요 :)"
+        textField.font = Fonts.font13
+        textField.addTarget(self, action: #selector(nicknameTextFieldEdited), for: .editingChanged)
+        return textField
+    }()
     
-    let divider = UIView().then {
-        $0.backgroundColor = .white
-    }
+    private let divider: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
     
-    let nicknameCondition = UILabel().then {
-        $0.text = ""
-        $0.font = Fonts.font13
-    }
+    private let nicknameCondition: UILabel = {
+        let condition = UILabel()
+        condition.text = ""
+        condition.font = Fonts.font13
+        return condition
+    }()
     
-    lazy var doneButton = UIButton().then {
-        $0.setTitle("완료", for: .normal)
-        $0.setTitleColor(Colors.textColor, for: .normal)
-        $0.backgroundColor = Colors.pointColor
-        $0.layer.cornerRadius = 5
-        $0.addTarget(self, action: #selector(doneButtonClicked), for: .touchUpInside)
-    }
+    private lazy var doneButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("완료", for: .normal)
+        button.setTitleColor(Colors.textColor, for: .normal)
+        button.backgroundColor = Colors.pointColor
+        button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(doneButtonClicked), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +93,6 @@ class NickcnameSettingViewController: BaseViewController {
         }
         
         divider.snp.makeConstraints {
-            // 홀리몰리~2 height만 주고 width값 안주니까 안보이지 몽총아~
             $0.width.equalTo(nicknameTextField.snp.width)
             $0.height.equalTo(1)
             $0.top.equalTo(nicknameTextField.snp.bottom).offset(10)
@@ -107,12 +118,12 @@ class NickcnameSettingViewController: BaseViewController {
         doneButton.isEnabled = false
     }
     
-    @objc func profileImgClicked() {
+    @objc private func profileImgClicked() {
         let vc = ProfileImageSettingViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func nicknameTextFieldEdited() {
+    @objc private func nicknameTextFieldEdited() {
         guard let nickname = nicknameTextField.text else { return }
         viewModel.inputNickname.value = nickname
         
@@ -126,7 +137,7 @@ class NickcnameSettingViewController: BaseViewController {
         }
     }
     
-    @objc func doneButtonClicked() {
+    @objc private func doneButtonClicked() {
         guard let nickname = nicknameTextField.text else { return }
         UserDefaultManager.shared.nickname = nickname
         UserDefaultManager.shared.userState = true
